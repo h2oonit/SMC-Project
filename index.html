@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMC - The Best Movies</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/215b60d9f5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section id="landing">
+        <nav class="nav">
+            <div class="container nav__container">
+                <div class="row nav__row">
+                    <div class="logo">
+                        <figure class="logo__wrapper">
+                            <img src="./assets/SMC Logo.png" alt="" class="logo__img">
+                        </figure>
+                    </div>
+                    <div class="nav__contents">
+                        <div class="nav__search--bar">
+                            <input type="text" class="search--bar" maxlength="30" placeholder="Search" required>
+                            <i class="fas fa-magnifying-glass" onclick="movieSearch()"></i>
+                        </div>
+                        
+                        <ul class="nav__link--list">
+                            <li class="nav__link">
+                                <a href="#best">Featured</a>
+                            </li>
+                            <li class="nav__link">
+                                <a href="#movies">Movies</a>
+                            </li>
+                            <li class="nav__link">
+                                <a href="#footer">More</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row landing__row">
+                <div class="desc">
+                    <h1 class="title">Welcome to <br><b class="purple">SMC Movies</b></h1>
+                    <h2 class="sub-title">The <span class="purple">Best</span> place to find your favorites!!!</h2>
+                    <p class="desc__para">
+                        From <span class="purple">Action</span> to <span class="purple">Romance</span>, <span class="purple">Fantasy</span> to <span class="purple">Sci-Fi</span>, <span class="purple">Historical</span> to <span class="purple">Futuristic</span>, <br> <b class="purple">SMC</b> has it all! <br>
+                        Thousands of movies, all at the click of a button.
+                    </p>
+                    <a href="#movies" class="desc__button--link">
+                        <button class="button desc__button">
+                        Go to Movies
+                    </button>
+                    </a>
+                    
+                </div>
+                <div class="showcase__movies--list">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="best">
+        <div class="container best__container">
+            <div class="row best__row">
+                <div class="best__movies--desc" >
+                    <h1 class="best__movies--title">Top 10 - SMC</h1>
+                    <h2 class="best__movies--sub-title">Choose from the Best!</h2>
+                </div>
+                <div class="best__movies--dividor"></div>
+                <div class="best__movies--slider">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="movies">
+        <div class="container movies__container">
+            <div class="row movies__row">
+                <div class="movies__desc">
+                    <h1 class="movies__title">All Movies</h1>
+                    <h2 class="movies__sub-title">Find your next favorite movie!</h2>
+                </div>
+                <div class="movies__dividor"></div>
+                <div class="movies__gallery">
+                    
+                </div>
+                <button class="button movies__button" onclick="loadMoreMovies()">Load More</button>
+    </section>
+
+    <footer id="footer">
+        <div class="container footer__container">
+            <div class="row footer__row">
+                <figure class="footer__logo">
+                    <a href="#landing">
+                        <img src="./assets/SMC Logo.png" href="#" alt="" class="footer__logo--img">
+                    </a>
+                </figure>
+                <div class="footer__links">
+                    <ul class="footer__link--list">
+                        <li class="footer__link"><a href="#">Home</a></li>
+                        <li class="footer__link"><a href="#best">Featured</a></li>
+                        <li class="footer__link"><a href="#movies">Movies</a></li>
+                        <li class="footer__link"><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+    </footer>
+    
+</body>
+<script src="index.js"></script>
+</html>
