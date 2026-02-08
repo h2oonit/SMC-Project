@@ -10,7 +10,7 @@ let loadIndex = 0;
 
 async function main() {
     let i = 0;
-    const movies = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie');
+    const movies = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie');
     const moviesData = await movies.json();
     const moviesDataSearch = moviesData.Search;
 
@@ -61,7 +61,7 @@ async function main() {
 async function topTenMovies() {
     let i = 0;
     
-    const movies = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=last');
+    const movies = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=last');
     const moviesData = await movies.json();
     const moviesDataSearch = moviesData.Search;
     let movieCurrent = moviesDataSearch;
@@ -112,8 +112,8 @@ function bestBkgdHTML(movie) {
 // MOVIE GALLERY 
 
 async function movieGallery() {
-    const moviesPg1 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=1');
-    const moviesPg2 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=2');
+    const moviesPg1 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=1');
+    const moviesPg2 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=2');
     const moviesData1 = await moviesPg1.json();
     const moviesData2 = await moviesPg2.json();
     const moviesDataSearch = [].concat(
@@ -140,16 +140,16 @@ function movieGalleryHTML(movie) {
 // LOADING MORE MOVIES 
 
 async function loadMoreMovies() {
-    const moviesPg1 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=1');
-    const moviesPg2 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=2');
-    const moviesPg3 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=3');
-    const moviesPg4 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=4');
-    const moviesPg5 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=5');
-    const moviesPg6 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=6');
-    const moviesPg7 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=7');
-    const moviesPg8 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=8');
-    const moviesPg9 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=9');
-    const moviesPg10 = await fetch('http://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=10');
+    const moviesPg1 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=1');
+    const moviesPg2 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=2');
+    const moviesPg3 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=3');
+    const moviesPg4 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=4');
+    const moviesPg5 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=5');
+    const moviesPg6 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=6');
+    const moviesPg7 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=7');
+    const moviesPg8 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=8');
+    const moviesPg9 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=9');
+    const moviesPg10 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=10');
     const moviesData1 = await moviesPg1.json();
     const moviesData2 = await moviesPg2.json();
     const moviesData3 = await moviesPg3.json();
