@@ -70,19 +70,33 @@ async function topTenMovies() {
 
     bestMovieListEl.innerHTML = moviesDataSearch.map(movie => bestMoviesHTML(movie)).join('');
 
-    function changeBackground(movie) {
-        return `
-        <img src="${movie.Poster}" class="best__movie--bkgd" alt="">`
+    // Create background element
+    const backgroundDiv = document.createElement('div');
+    backgroundDiv.className = 'best__movie--bkgd';
+    bestMovieBkgdEl.insertBefore(backgroundDiv, bestMovieBkgdEl.firstChild);
+    
+    // Set initial background to first movie
+    updateBackground(moviesDataSearch[0].Poster);
+    
+    // Add hover listeners to each movie
+    const movieElements = document.querySelectorAll('.best__movie');
+    movieElements.forEach((movieEl, index) => {
+        movieEl.addEventListener('mouseenter', () => {
+            updateBackground(moviesDataSearch[index].Poster);
+        });
+    });
+    
+    function updateBackground(posterUrl) {
+        const backgroundDiv = document.querySelector('.best__movie--bkgd');
+        if (backgroundDiv) {
+            backgroundDiv.innerHTML = `<img src="${posterUrl}" alt="">`;
+        }
     }
-    
-    // bestMovieBkgdEl.innerHTML = moviesDataSearch.map(movie => changeBackground(movie)).join('');
-
-    
 }
 
 function bestMoviesHTML(movie) {
     return `
-        <div class="best__movie" onhover="changeBackground('${movie}')">
+        <div class="best__movie">
             <figure class="best__movie--wrapper">
                 <img src="${movie.Poster}" class="best__movie--img" alt="">
             </figure>
