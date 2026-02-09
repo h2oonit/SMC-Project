@@ -470,6 +470,17 @@ button:active {
     align-items: center;
 }
 
+.search__result{
+    display: none;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 32px;
+}
+
+.search__result--visible {
+    display: flex;
+}
+
 .movies__gallery {
     width: 90%;
     display: flex;
@@ -597,7 +608,9 @@ button:active {
     .nav__link--list {
         padding: 0 24px 0 0;
     }
-
+    .gallery__movie {
+        width: 25%;
+    }
 }
 
 
@@ -760,9 +773,19 @@ button:active {
     .footer__logo--img {
         width: 100%;
     }
+    .search__result {
+        font-size: 24px;
+    }
 }
 
 
+/* 280px */
+
+@media (max-width: 275px) {
+    .search__result {
+        font-size: 16px;
+    }
+}
 
 
 

@@ -2,12 +2,14 @@ const movieListEl = document.querySelector(".showcase__movies--list")
 const bestMovieListEl = document.querySelector(".best__movies--slider")
 const bestMovieBkgdEl = document.querySelector("#best")
 const movieGalleryEl = document.querySelector(".movies__gallery")
-const searchInput = document.getElementById("search__bar")
+const movieSection = document.querySelector('#movies')
+const searchInput = document.getElementById("search--bar")
 const searchLoad = document.querySelector('.search__spinner')
 const loading = document.querySelector('.load__spinner')
 const magGlass = document.querySelector('.mag__glass')
+const searchResult = document.querySelector('.search__result')
 let loadIndex = 0;
-
+let lastSearchTerm = null
 
 // MAIN
 
@@ -137,19 +139,29 @@ function movieGalleryHTML(movie) {
 
 // SEARCH MOVIES
 
-function searchMovies(event) {
-    magGlass.classList += " mag__glass--hidden"
-    searchLoad.classList += " search__spinner--visible"
-    searchInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
 
-            const searchTerms = searchInput.value;
-            
-            console.log(searchTerms)
-        }
-    })
-    loadMoreMovies(input);
+
+function searchMovies(event) {
+    lastSearchTerm = searchInput.value;
+    const lastSearchTermU = lastSearchTerm.charAt(0).toUpperCase() + lastSearchTerm.slice(1);
+    console.log('you searched: ' + lastSearchTermU)
+    if (lastSearchTerm.length !== 0 && lastSearchTerm !== '') {
+        magGlass.classList += " mag__glass--hidden"
+        searchLoad.classList += " search__spinner--visible"
+        setTimeout(() => {
+            magGlass.classList.remove('mag__glass--hidden')
+            searchLoad.classList.remove('search__spinner--visible')
+            movieSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        },1500)
+        loadIndex = -1
+        loadMoreMovies(lastSearchTerm);
+        searchResult.innerHTML = 'Your Search: ' + lastSearchTermU
+        searchResult.classList += " search__result--visible"
+    }
+    else {
+        alert('Type in the name of a movie')
+    }
+    
 }
 
 
@@ -158,21 +170,22 @@ function searchMovies(event) {
 
 async function loadMoreMovies(input) {
     loadIndex = loadIndex + 1;
-    let a = 'song'
+    
+    const query = input || lastSearchTerm || 'movie';
     
     if (loadIndex <= 8) {
         loading.classList += " spinner__visible"
     }
-    const moviesPg1 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=1`);
-    const moviesPg2 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=2`);
-    const moviesPg3 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=3`);
-    const moviesPg4 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=4`);
-    const moviesPg5 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=5`);
-    const moviesPg6 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=6`);
-    const moviesPg7 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=7`);
-    const moviesPg8 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=8`);
-    const moviesPg9 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=9`);
-    const moviesPg10 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=10`);
+    const moviesPg1 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=1`);
+    const moviesPg2 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=2`);
+    const moviesPg3 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=3`);
+    const moviesPg4 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=4`);
+    const moviesPg5 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=5`);
+    const moviesPg6 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=6`);
+    const moviesPg7 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=7`);
+    const moviesPg8 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=8`);
+    const moviesPg9 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=9`);
+    const moviesPg10 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${query}&page=10`);
     const moviesData1 = await moviesPg1.json();
     const moviesData2 = await moviesPg2.json();
     const moviesData3 = await moviesPg3.json();
@@ -187,10 +200,16 @@ async function loadMoreMovies(input) {
             moviesData1.Search,
             moviesData2.Search,
         );
-    
 
-
-    if (loadIndex === 1) {
+    if (loadIndex === 0) {
+    loading.classList.remove("spinner__visible")
+    moviesDataSearch = [].concat(
+        moviesDataSearch,
+    )
+    console.log(moviesDataSearch);
+    movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
+    }
+    else if (loadIndex === 1) {
         loading.classList.remove("spinner__visible")
         moviesDataSearch = [].concat(
             moviesDataSearch,
@@ -303,5 +322,9 @@ async function loadMoreMovies(input) {
 main();
 topTenMovies();
 movieGallery();
-
-
+searchInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        searchMovies(event)
+    }
+})
