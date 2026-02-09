@@ -21,8 +21,13 @@
                     </div>
                     <div class="nav__contents">
                         <div class="nav__search--bar">
-                            <input type="text" class="search--bar" maxlength="30" placeholder="Search" required>
-                            <i class="fas fa-magnifying-glass" onclick="movieSearch()"></i>
+                            <input type="text" id="search--bar" class="search--bar" maxlength="30" placeholder="Search" onsubmit="searchMovies(event)" required>
+                            <div class="mag__glass">
+                                <i class="fas fa-magnifying-glass" onclick="searchMovies(event)"></i>
+                            </div>
+                            <div class="search__spinner">
+                                <i class="fas fa-spinner"></i>
+                            </div>
                         </div>
                         
                         <ul class="nav__link--list">
@@ -88,6 +93,9 @@
                 <div class="movies__dividor"></div>
                 <div class="movies__gallery">
                     
+                </div>
+                <div class="load__spinner">
+                    <i class="fas fa-spinner"></i>
                 </div>
                 <button class="button movies__button" onclick="loadMoreMovies()">Load More</button>
     </section>

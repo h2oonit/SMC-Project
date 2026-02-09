@@ -2,8 +2,11 @@ const movieListEl = document.querySelector(".showcase__movies--list")
 const bestMovieListEl = document.querySelector(".best__movies--slider")
 const bestMovieBkgdEl = document.querySelector("#best")
 const movieGalleryEl = document.querySelector(".movies__gallery")
+const searchInput = document.getElementById("search__bar")
+const searchLoad = document.querySelector('.search__spinner')
+const loading = document.querySelector('.load__spinner')
+const magGlass = document.querySelector('.mag__glass')
 let loadIndex = 0;
-
 
 
 // MAIN
@@ -103,11 +106,7 @@ function bestMoviesHTML(movie) {
         </div>`;
 }
 
-function bestBkgdHTML(movie) {
-    ;
-}
 
-// YES 
 
 // MOVIE GALLERY 
 
@@ -136,20 +135,44 @@ function movieGalleryHTML(movie) {
 }
 
 
+// SEARCH MOVIES
+
+function searchMovies(event) {
+    magGlass.classList += " mag__glass--hidden"
+    searchLoad.classList += " search__spinner--visible"
+    searchInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            const searchTerms = searchInput.value;
+            
+            console.log(searchTerms)
+        }
+    })
+    loadMoreMovies(input);
+}
+
+
 
 // LOADING MORE MOVIES 
 
-async function loadMoreMovies() {
-    const moviesPg1 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=1');
-    const moviesPg2 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=2');
-    const moviesPg3 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=3');
-    const moviesPg4 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=4');
-    const moviesPg5 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=5');
-    const moviesPg6 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=6');
-    const moviesPg7 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=7');
-    const moviesPg8 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=8');
-    const moviesPg9 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=9');
-    const moviesPg10 = await fetch('https://www.omdbapi.com/?apikey=6e82b9d2&s=movie&page=10');
+async function loadMoreMovies(input) {
+    loadIndex = loadIndex + 1;
+    let a = 'song'
+    
+    if (loadIndex <= 8) {
+        loading.classList += " spinner__visible"
+    }
+    const moviesPg1 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=1`);
+    const moviesPg2 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=2`);
+    const moviesPg3 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=3`);
+    const moviesPg4 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=4`);
+    const moviesPg5 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=5`);
+    const moviesPg6 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=6`);
+    const moviesPg7 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=7`);
+    const moviesPg8 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=8`);
+    const moviesPg9 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=9`);
+    const moviesPg10 = await fetch(`https://www.omdbapi.com/?apikey=6e82b9d2&s=${a || 'movie'}&page=10`);
     const moviesData1 = await moviesPg1.json();
     const moviesData2 = await moviesPg2.json();
     const moviesData3 = await moviesPg3.json();
@@ -164,9 +187,11 @@ async function loadMoreMovies() {
             moviesData1.Search,
             moviesData2.Search,
         );
-    loadIndex = loadIndex + 1;
+    
+
 
     if (loadIndex === 1) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch = [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -175,6 +200,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 2) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -184,6 +210,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 3) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -194,6 +221,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 4) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -205,6 +233,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 5) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -217,6 +246,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 6) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -230,6 +260,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 7) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
@@ -244,6 +275,7 @@ async function loadMoreMovies() {
         movieGalleryEl.innerHTML = moviesDataSearch.map(movie => movieGalleryHTML(movie)).join('');
     }
     else if (loadIndex === 8) {
+        loading.classList.remove("spinner__visible")
         moviesDataSearch =  [].concat(
             moviesDataSearch,
             moviesData3.Search,
